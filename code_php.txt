@@ -1,0 +1,22 @@
+CREATE TABLE carts (
+    cart_id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES users(user_id)
+) ENGINE=InnoDB;
+
+CREATE TABLE cart_details (
+    cart_detailINT AUTO_INCREMENT PRIMARY KEY,
+    cart_id INT AUTO_INCREMENT,
+    drink_id INT NOT NULL,
+    drink_quantity INT NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES users(user_id)
+    FOREIGN KEY (drink_id) REFERENCES soft_drink(drink_id)
+) ENGINE=InnoDB;
+
+select sd.drink_name, cd.drink_quantity, c.user_id from cart_details cd
+inner join soft_drink sd on sd.drink_id = cd.drink_id
+inner join carts c on cd.cart_id = c.cart_id
+inner join users us on us.user_id = c.user_id
+WHERE c.user_id = 1
+
+<span class="item-price"><?php $quanitty =  float($row['cd.drink_quantity']); $price = $quanitty * 6; echo $price; ?> </span>

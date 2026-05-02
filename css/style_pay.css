@@ -1,0 +1,228 @@
+html, body {
+  max-width: 100%;
+  overflow-x: hidden;
+  box-sizing: border-box;
+}
+
+.cart-items {
+  flex: 1 1 300px;
+  background: #f8f9fa;
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0 0 5px rgba(0,0,0,0.1);
+}
+
+.cart-items h3 {
+  margin-bottom: 10px;
+}
+
+.cart-items ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.cart-items li {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 0;
+  border-bottom: 1px solid #ddd;
+  font-size: 16px;
+}
+
+.cart-total {
+  margin-top: 12px;
+  font-size: 18px;
+}
+
+.checkout-section {
+  flex: 2 1 400px;
+  background: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 5px rgba(0,0,0,0.1);
+}
+
+.checkout-section h2 {
+  margin-bottom: 10px;
+}
+
+.note {
+ width: 100%;
+  box-sizing: border-box;
+  padding: 10px;
+  background: #fff5d1;
+  border: 1px solid #ffc107;
+  border-radius: 6px;
+  margin-top: 10px;
+  font-size: 14px;
+}
+
+.checkout-actions {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 12px;
+}
+
+.btn {
+  padding: 12px;
+  font-size: 16px;
+  font-weight: bold;
+  border: none;
+  border-radius: 10px;
+  color: white;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.btn.cash { background-color: #38a169; }
+.btn.transfer { background-color: #3182ce; }
+.btn.debt { background-color: #ed8936; }
+.btn.Export, .btn.Kitchen { background-color: #718096; }
+.btn.cancel { background-color: #e53e3e; }
+.btn:hover { filter: brightness(1.1); }
+
+  .numeric-control {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-width: 120px; /* Đảm bảo không bị bóp lại */
+    justify-content: center;
+  }
+
+  .numeric-control button {
+    width: 32px;
+    height: 32px;
+    font-size: 18px;
+    background-color: #4a90e2;
+    border: none;
+    color: white;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+  }
+
+  .item-price {
+  min-width: 70px;
+  text-align: right;
+  font-weight: bold;
+  padding-left: -10px;
+}
+
+  .numeric-control button:hover {
+    background-color: #357abd;
+  }
+
+  .numeric-control input {
+    width: 50px;
+    text-align: center;
+    font-size: 16px;
+    padding: 4px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+  }
+
+.popup-overlay {
+  display: none;
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+.item-name {
+  flex: 1 1 auto;
+  word-break: break-word;
+  max-width: 200px; /* Giới hạn chiều rộng tên món để tránh đẩy các phần khác */
+}
+
+.popup-box {
+  background: #fff;
+  padding: 20px;
+  border-radius: 12px;
+  max-width: 90%;
+  width: 300px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  text-align: center;
+}
+
+.popup-actions {
+  margin-top: 16px;
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.checkout-wrapper form {
+  display: flex;
+  gap: 20px;
+  width: 100%;
+}
+
+.checkout-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  padding: 20px;
+  max-width: 1200px;
+  margin: auto;
+  overflow-x: hidden;
+}
+
+/* Giữ nguyên dạng 2 cột trên desktop */
+
+.cart-items {
+  flex: 1 1 300px;
+  min-width: 300px;
+}
+
+.checkout-section {
+  flex: 2 1 400px;
+  min-width: 400px;
+}
+#fillerCustomer {
+    position: relative;
+    display: inline-block;
+    width: 100%; /* hoặc kích thước mong muốn */
+    border: 1px solid #dee2e6; /* màu viền tương tự như Bootstrap */
+    border-radius: 0.25rem; /* bo góc tương tự Bootstrap */
+    background-color: #fff; /* nền trắng */
+    padding: 0.5rem 1rem; /* padding tương tự Bootstrap */
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075); /* bóng đổ tương tự Bootstrap */
+}
+
+#fillerCustomer select {
+    border: none;
+    outline: none; /* Bỏ viền khi chọn */
+    font-size: 1rem; /* Kích thước font tương tự */
+}
+
+#fillerCustomer select:focus {
+    box-shadow: none; /* Bỏ bóng đổ khi đang tập trung */
+}
+
+
+/* Responsive cho mobile */
+@media (max-width: 780px) {
+  .cart-items,
+  .checkout-section {
+    width: 100%;
+    box-sizing: border-box;
+    flex: 1 1 100%;
+    min-width: unset;
+    padding: 16px; 
+  }
+  .checkout-wrapper form {
+    flex-direction: column;
+     box-sizing: border-box;
+      max-width: 100%;
+  }
+  .checkout-section form {
+    flex-direction: column;
+    gap: 12px;
+    max-width: 100%;
+    width: 100%;
+  }
+}

@@ -1,0 +1,11 @@
+# Database config
+# include/config.php
+
+# Backups
+index_backup/
+*.bak
+*.tmp
+
+# OS files
+.DS_Store
+Thumbs.db

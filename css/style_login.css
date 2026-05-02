@@ -1,0 +1,79 @@
+/* Nền + font */
+body {
+  background-color: #ffa500;
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+/* Container login */
+.login-container {
+  max-width: 400px;
+  width: 100%;
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 0 15px rgba(0,0,0,0.2);
+}
+
+/* Logo */
+.logo {
+  display: block;
+  margin: 0 auto 15px auto;
+  height: 60px;
+  max-width: 100%;
+}
+
+/* Tiêu đề */
+.login-title {
+  color: maroon;
+  text-align: center;
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+
+/* Label */
+.form-label {
+  color: maroon;
+}
+
+/* Nút login */
+.btn-login {
+  background-color: maroon;
+  color: white;
+  width: 100%;
+  border: none;
+  padding: 10px;
+  font-weight: bold;
+  border-radius: 6px;
+}
+
+.btn-login:hover {
+  background-color: #5a0000;
+}
+
+/* Chữ nhỏ */
+.text-small {
+  font-size: 0.9rem;
+  color: gray;
+  text-align: center;
+  margin-top: 15px;
+}
+
+/* Responsive cho màn nhỏ */
+@media (max-width: 576px) {
+  .login-container {
+    padding: 20px;
+    margin: 0 15px;
+  }
+
+  .login-title {
+    font-size: 1.2rem;
+  }
+
+  .form-label,
+  input,
+  .btn-login {
+    font-size: 1rem;
+  }
+}

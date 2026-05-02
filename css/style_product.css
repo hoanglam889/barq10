@@ -1,0 +1,307 @@
+/* ========== Layout chung ========== */
+body {
+  background: #f0f2f5;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.order-container {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.order-list {
+  max-width: 1000px;
+  margin: 10px auto;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  overflow-x: auto;
+  padding: 20px;
+  padding-top: 64px; /* chừa chỗ cho header */
+}
+
+.order-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.order-header input,
+.order-header select {
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+/* ========== Table ========== */
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+thead {
+  background: #f5f5f5;
+}
+
+th, td {
+  padding: 14px 16px;
+  text-align: left;
+  border-bottom: 1px solid #eee;
+  font-size: 15px;
+}
+
+th {
+  font-weight: 600;
+  color: #333;
+}
+
+/* Header cố định */
+.tbl-order-header {
+  position: fixed;
+  top: 118px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 1000px;
+  background: white;
+  z-index: 999;
+  border-collapse: collapse;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.tbl-order-header th {
+  padding: 12px 16px;
+  border-bottom: 1px solid #ccc;
+  background: #f1f1f1;
+  text-align: left;
+}
+.order-row tr {
+  padding-bottom: 12px;
+}
+.order-row td {
+  padding: 14px 28px 16px;
+}
+
+/* ========== Hành động (icon) ========== */
+.action-icons i {
+  margin-right: 10px;
+  cursor: pointer;
+  color: #333;
+  transition: 0.2s;
+}
+
+.action-icons i:hover {
+  color: #007bff;
+}
+
+/* ========== Chi tiết đơn hàng ========== */
+.order-details {
+  background: #f9f9f9;
+  padding: 10px 20px;
+  font-size: 14px;
+  display: none;
+  border-bottom: 1px solid #eee;
+  animation: fadeIn 0.3s ease;
+  transition: all 0.2s;
+}
+
+.order-details.show {
+  display: table-row;
+}
+
+/* ========== Hiệu ứng ========== */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* ========== Status pill ========== */
+.status-pill {
+  padding: 4px 10px;
+  border-radius: 20px;
+  color: white;
+  font-weight: bold;
+  font-size: 0.9em;
+}
+
+.pay-cash {
+  background-color: #38a169; /* xanh lá */
+}
+
+.pay-bank {
+  background-color: #3182ce; /* xanh dương */
+}
+
+.pay-debt {
+  background-color: #ed8936; /* cam */
+}
+
+.pay-export {
+  background-color: #718096; /* xám */
+}
+
+/* ========== Responsive ========== */
+/* ========== Responsive mobile ≤768px ========== */
+@media (max-width: 768px) {
+  table.tbl-order-header { display: none; }
+  table tbody { display: block; padding: 12px 0; }
+
+  table tbody tr.order-row {
+    display: grid;
+    grid-template-columns: 80px 1fr 1fr 40px;
+    grid-template-rows: auto auto;
+    align-items: center;
+    background: #fff;
+    margin: 10px;
+    padding: 12px 10px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  }
+
+  table tbody tr.order-row td {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    border: none;
+    font-size: 13px;
+  }
+
+  /* Ảnh (Col 4) */
+  table tbody tr.order-row td:nth-child(4) {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  /* Tên (Col 1) */
+  table tbody tr.order-row td:nth-child(1) {
+    grid-column: 1;
+    grid-row: 2;
+    font-weight: 700;
+    text-align: center;
+    color: #333;
+    line-height: 1.2;
+    margin-top: 8px;
+    font-size: 12px;
+  }
+
+  /* Giá bán (Col 3) */
+  table tbody tr.order-row td:nth-child(3) {
+    grid-column: 2;
+    grid-row: 1 / span 2;
+    color: #e53e3e; /* màu đỏ nổi bật */
+    font-weight: 700;
+    font-size: 14px;
+    flex-direction: column;
+  }
+  
+  table tbody tr.order-row td:nth-child(3)::before {
+    content: "Giá bán";
+    font-size: 10px;
+    color: #888;
+    font-weight: normal;
+    margin-bottom: 2px;
+  }
+
+  /* Giá vốn (Col 2) */
+  table tbody tr.order-row td:nth-child(2) {
+    grid-column: 3;
+    grid-row: 1 / span 2;
+    color: #4a5568;
+    font-weight: 600;
+    flex-direction: column;
+  }
+
+  table tbody tr.order-row td:nth-child(2)::before {
+    content: "Giá vốn";
+    font-size: 10px;
+    color: #888;
+    font-weight: normal;
+    margin-bottom: 2px;
+  }
+
+  /* Hành động (Col 5) */
+  table tbody tr.order-row td:nth-child(5) {
+    grid-column: 4;
+    grid-row: 1 / span 2;
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  table tbody tr.order-row td:nth-child(5) i {
+    margin: 0;
+    font-size: 18px;
+  }
+
+  /* Chi tiết đơn hàng */
+  table tbody tr.order-details {
+    display: block;
+    margin-top: 8px;
+    padding: 8px 12px;
+    background: #f9fafb;
+    border-radius: 8px;
+    word-break: break-word;
+  }
+}
+
+
+
+
+  
+/* Toggle Switch CSS */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 40px;
+  height: 22px;
+}
+.switch input { 
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 16px;
+  width: 16px;
+  left: 3px;
+  bottom: 3px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+input:checked + .slider {
+  background-color: #28a745;
+}
+input:focus + .slider {
+  box-shadow: 0 0 1px #28a745;
+}
+input:checked + .slider:before {
+  -webkit-transform: translateX(18px);
+  -ms-transform: translateX(18px);
+  transform: translateX(18px);
+}
+.slider.round {
+  border-radius: 22px;
+}
+.slider.round:before {
+  border-radius: 50%;
+}
+.inactive-item {
+  opacity: 0.5;
+  background: #f8f9fa !important;
+}
