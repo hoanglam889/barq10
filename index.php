@@ -13,7 +13,7 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-  <link href="css/style.css" rel="stylesheet">
+  <link href="css/style.css?v=1.1" rel="stylesheet">
   <link rel="icon" href="img/icon.png" type="image/png">
   <link rel="apple-touch-icon" href="icons/icon-192.png">
   <meta name="mobile-web-app-capable" content="yes">
@@ -158,7 +158,7 @@ function loadOrder() {
             const oldScript = document.getElementById('dash_order_script');
             if (oldScript) oldScript.remove();
             const script = document.createElement('script');
-            script.src = 'js/dash_order.js';
+            script.src = 'js/dash_order.js?v=1.1';
             script.id = 'dash_order_script';
             script.onload = function() {
                 if (typeof bindOrderRowClick === 'function') bindOrderRowClick();
@@ -167,31 +167,7 @@ function loadOrder() {
         });
 }
 
-// Global: mở modal còn nợ theo customerId (dùng cho onclick khi HTML được chèn bằng fetch)
-window.openCusNo = function (customerId) {
-    if (!customerId) return;
-    const modalEl = document.getElementById('modal_loc');
-    if (!modalEl) return;
-    const bodyEl = modalEl.querySelector('.modal-body');
-    if (!bodyEl) return;
-    bodyEl.innerHTML = `
-      <div class="d-flex justify-content-center p-5">
-        <div class="spinner-border text-primary" role="status">
-          <span class="visually-hidden">Loading...</span>
-        </div>
-      </div>`;
-    fetch('cus_no.php?id=' + encodeURIComponent(customerId))
-      .then(res => res.ok ? res.text() : Promise.reject('Lỗi tải trang'))
-      .then(html => {
-        bodyEl.innerHTML = html;
-        if (window.bootstrap && bootstrap.Modal) {
-          bootstrap.Modal.getOrCreateInstance(modalEl).show();
-        }
-      })
-      .catch(err => {
-        bodyEl.innerHTML = `<div class="alert alert-danger">${err}</div>`;
-      });
-};
+// Đã chuyển hàm openCusNo sang js/dash_order.js
 
 function loadRevenue() {
     fetch("dash_revenue.php")
@@ -202,7 +178,7 @@ function loadRevenue() {
             const oldScript = document.getElementById('dash_revenue_script');
             if (oldScript) oldScript.remove();
             const script = document.createElement('script');
-            script.src = 'js/dash_revenue.js';
+            script.src = 'js/dash_revenue.js?v=1.1';
             script.id = 'dash_revenue_script';
             script.onload = function() {
                 if (typeof initRevenuePage === 'function') initRevenuePage();
@@ -220,7 +196,7 @@ function loadProducts() {
             const oldScript = document.getElementById("dash_products_script");
             if (oldScript) oldScript.remove();
             const script = document.createElement("script");
-            script.src = "js/dash_products.js";
+            script.src = "js/dash_products.js?v=1.1";
             script.id = "dash_products_script";
             document.body.appendChild(script);
         });
@@ -234,7 +210,7 @@ function loadProducts() {
               const oldScript = document.getElementById('dash_customer_script');
               if (oldScript) oldScript.remove();
               const script = document.createElement('script');
-              script.src = 'js/dash_customer.js';
+              script.src = 'js/dash_customer.js?v=1.1';
               script.id = 'dash_customer_script';
               script.onload = function() {
                   if (typeof initCustomerPage === 'function') initCustomerPage();
@@ -252,7 +228,7 @@ function loadUsers() {
             const oldScript = document.getElementById("dash_users_script");
             if (oldScript) oldScript.remove();
             const script = document.createElement("script");
-            script.src = "js/dash_users.js";
+            script.src = "js/dash_users.js?v=1.1";
             script.id = "dash_users_script";
             document.body.appendChild(script);
         });
