@@ -337,6 +337,14 @@ document.addEventListener("DOMContentLoaded", function() {
             bootstrap.Offcanvas.getOrCreateInstance(offcanvas).hide();
         }
     });
+    // Tự động load JS tương ứng nếu có tham số ?tab= trên URL (dùng cho trường hợp F5 hoặc redirect)
+    const urlParams = new URLSearchParams(window.location.search);
+    const initialTab = urlParams.get('tab');
+    if (initialTab === 'products') loadProducts();
+    else if (initialTab === 'customers') loadCustomer();
+    else if (initialTab === 'order') loadOrder();
+    else if (initialTab === 'users') loadUsers();
+    else if (initialTab === 'revenue') loadRevenue();
 });
 function reloadPage() {
         // Tải lại trang không sử dụng cache

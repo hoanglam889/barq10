@@ -63,7 +63,7 @@
         document.getElementById('editDrinkCost').value = data.drink_cost ?? '';
         document.getElementById('editDrinkPrice').value= data.drink_price ?? '';
         document.getElementById('editDrinkImg').value = '';
-        const preview = document.getElementById('imgPreview');
+        const preview = document.getElementById('editImgPreview');
         if (preview) preview.src = data.drink_img || 'default.jpg';
         document.getElementById('editModal').classList.remove('hidden');
       })
@@ -83,6 +83,10 @@
     document.getElementById('editModal')?.classList.add('hidden');
   };
 
+  window.closeAddModal = function() {
+    document.getElementById('addModal')?.classList.add('hidden');
+  };
+
   const btnAddProduct = document.getElementById('addProduct');
   if (btnAddProduct) {
     btnAddProduct.onclick = function() {
@@ -98,6 +102,14 @@
       const file = this.files[0];
       if (file) document.getElementById('addImgPreview').src = URL.createObjectURL(file);
       else document.getElementById('addImgPreview').src = '';
+    };
+  }
+
+  const editDrinkImg = document.getElementById('editDrinkImg');
+  if (editDrinkImg) {
+    editDrinkImg.onchange = function() {
+      const file = this.files[0];
+      if (file) document.getElementById('editImgPreview').src = URL.createObjectURL(file);
     };
   }
 

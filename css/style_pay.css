@@ -2,6 +2,12 @@ html, body {
   max-width: 100%;
   overflow-x: hidden;
   box-sizing: border-box;
+  touch-action: manipulation;
+}
+
+input, select, textarea, button {
+  font-size: 16px !important;
+  touch-action: manipulation;
 }
 
 .cart-items {
@@ -55,7 +61,7 @@ html, body {
   border: 1px solid #ffc107;
   border-radius: 6px;
   margin-top: 10px;
-  font-size: 14px;
+  font-size: 16px;
 }
 
 .checkout-actions {

@@ -89,6 +89,7 @@ $count = 0;
         <label>Ảnh sản phẩm:
         <input type="file" id="editDrinkImg" name="drink_img" accept="image/*">
       </label>
+      <img id="editImgPreview" src="" alt="Xem trước ảnh" style="max-width:100px; display:block; margin-top:5px;">
         <div class="modal-buttons">
           <button type="button" class="btn-cancel" onclick="closeEditModal()">Hủy</button>
           <button type="submit" class="btn-save">Lưu</button>

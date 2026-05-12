@@ -220,6 +220,19 @@
         if (!modalEl) return;
         const bodyEl = modalEl.querySelector('.modal-body');
         if (!bodyEl) return;
+
+        // Lưu lại danh sách tổng quan ban đầu trước khi ghi đè chi tiết nợ của 1 người
+        if (!modalEl.dataset.hasOriginalHtml) {
+            // Lưu nội dung HTML ban đầu
+            modalEl.dataset.originalHtml = bodyEl.innerHTML;
+            modalEl.dataset.hasOriginalHtml = "true";
+            
+            // Khi popup đóng lại, tự động phục hồi lại danh sách tổng quan
+            modalEl.addEventListener('hidden.bs.modal', function () {
+                bodyEl.innerHTML = modalEl.dataset.originalHtml;
+            });
+        }
+
         bodyEl.innerHTML = '<div class="d-flex justify-content-center p-5"><div class="spinner-border text-primary" role="status"></div></div>';
         fetch('cus_no.php?id=' + encodeURIComponent(customerId))
           .then(res => res.ok ? res.text() : Promise.reject('Lỗi tải trang'))
