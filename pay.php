@@ -1,19 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
-  <link rel="stylesheet" href="css/style_pay.css?v=1.1">
-  <title>Document</title>
-</head>
-<body>
-  
-</body>
-</html>
-<?php 
-  include('include/config.php');
-  //Check xem login chưa
+<?php
   session_start();
+  include('include/config.php');
+  if (!isset($_SESSION['user_id'])) {
+    header("Location: login.php");
+    exit;
+  }
   $session_id = $_SESSION['user_id'];
    $sql = "select sd.drink_id, sd.drink_name, cd.drink_quantity, sd.drink_price, c.user_id from cart_details cd
 inner join soft_drink sd on sd.drink_id = cd.drink_id
@@ -25,6 +16,15 @@ WHERE c.user_id = '$session_id'
   $stmt->execute();
   
 ?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <link rel="stylesheet" href="css/style_pay.css?v=1.1">
+  <title>Document</title>
+</head>
+<body>
 
 
 <div class="checkout-wrapper">
