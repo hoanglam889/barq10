@@ -1,0 +1,77 @@
+services:
+  # =========================
+  # BACKEND
+  # =========================
+  backend:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    container_name: php-barq10
+    ports:
+      - "8090:80"
+    environment:
+      DB_HOST: db
+      DB_PORT: 3306
+      DB_NAME: ${DB_NAME}
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - barq10-network
+
+  # =========================
+  # DATABASE
+  # =========================
+  db:
+    image: mysql:8.0
+    container_name: mysql-barq10
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${DB_NAME}
+      MYSQL_USER: ${DB_USER}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+    ports:
+      - "3308:3306"
+    volumes:
+      - mysql-barq10:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-p${DB_ROOT_PASSWORD}"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+    networks:
+      - barq10-network
+
+  # =========================
+  # PHPMYADMIN
+  # =========================
+  phpmyadmin:
+    image: phpmyadmin:latest
+    container_name: phpmyadmin-barq10
+    restart: unless-stopped
+    ports:
+      - "8082:80"
+    environment:
+      PMA_HOST: db
+      PMA_PORT: 3306
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - barq10-network
+
+# =========================
+# VOLUMES
+# =========================
+volumes:
+  mysql-barq10:
+
+# =========================
+# NETWORKS
+# =========================
+networks:
+  barq10-network:
+    driver: bridge

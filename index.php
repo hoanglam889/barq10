@@ -1,8 +1,17 @@
-<?php 
+<?php
+  session_start();
   include 'include/config.php';
+  if (!isset($_SESSION['user_id'])) {
+    header("Location: login.php");
+    exit;
+  }
   header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
   header("Cache-Control: post-check=0, pre-check=0", false);
   header("Pragma: no-cache");
+  $role = $_SESSION['user_role'];
+  $toast_message = $_SESSION['toast_message'] ?? '';
+  $toast_type = $_SESSION['toast_type'] ?? 'success';
+  unset($_SESSION['toast_message'], $_SESSION['toast_type']);
 ?>
 <!DOCTYPE html>
 <html lang="vi">
@@ -28,16 +37,6 @@
 <!-- test toast message -->
 
 <body>
-<?php 
-  session_start();
-  if (!isset($_SESSION['user_id'])){
-  header("Location: login.php");
-  }
-  $role = $_SESSION['user_role'];
-  $toast_message = $_SESSION['toast_message'] ?? '';
-  $toast_type = $_SESSION['toast_type'] ?? 'success';
-  unset($_SESSION['toast_message'], $_SESSION['toast_type']);
-?>
 
 <nav class="navbar navbar-expand-lg navbar-custom fixed-top">
   <div class="container-fluid d-flex justify-content-between align-items-center">

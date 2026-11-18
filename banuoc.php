@@ -1,7 +1,4 @@
 <?php
-header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
-header("Cache-Control: post-check=0, pre-check=0", false);
-header("Pragma: no-cache");
 include_once('include/config.php');
 if (!function_exists('format_vnd')) {
     function format_vnd($value) {

@@ -1,0 +1,6 @@
+{
+  "root": ".",
+  "open": "index.php",
+  "port": 5500,
+  "php": true
+}

@@ -1,10 +1,11 @@
 <?php 
 date_default_timezone_set('Asia/Ho_Chi_Minh'); // Thiết lập múi giờ PHP
 
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "qlbar";
+$servername = getenv('DB_HOST');
+$db_port = getenv('DB_PORT') ?: 3308;
+$username = getenv('DB_USER');
+$password = getenv('DB_PASSWORD');
+$dbname = getenv('DB_NAME');
 
 try {
     $conn = new PDO(

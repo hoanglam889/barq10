@@ -1,3 +1,49 @@
+<?php
+session_start();
+require_once("include/config.php");
+
+$error_message = "";
+
+if (isset($_POST["submit"])) {
+    $username = trim($_POST['user_name']);
+    $password = trim($_POST['user_password']);
+
+    if (empty($username)) {
+        $error_message = "Tên đăng nhập không được để trống!";
+    } elseif (empty($password)) {
+        $error_message = "Mật khẩu không được để trống!";
+    } else {
+        try {
+            $sql = "SELECT * FROM users WHERE user_name = :username LIMIT 1";
+            $stmt = $conn->prepare($sql);
+            $stmt->execute([':username' => $username]);
+
+            if ($stmt->rowCount() > 0) {
+                $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+                if (isset($user['status']) && $user['status'] == 0) {
+                    $error_message = "Tài khoản này đã bị khóa. Vui lòng liên hệ quản lý!";
+                } else {
+                    if ($password === $user['user_password']) {
+                        $_SESSION['user_id']      = $user['user_id'];
+                        $_SESSION['user_name']    = $user['user_name'];
+                        $_SESSION['user_profile'] = $user['user_profile'];
+                        $_SESSION['user_role']    = $user['user_role'];
+                        header("Location: index.php");
+                        exit();
+                    } else {
+                        $error_message = "Mật khẩu không đúng!";
+                    }
+                }
+            } else {
+                $error_message = "Tên đăng nhập không tồn tại!";
+            }
+        } catch (PDOException $e) {
+            $error_message = "Lỗi hệ thống: " . $e->getMessage();
+        }
+    }
+}
+?>
 <!DOCTYPE html>
 <html lang="vi">
 <head>
@@ -18,78 +64,23 @@
 
 <div class="container-fluid d-flex justify-content-center align-items-center min-vh-100">
   <div class="login-container">
-    <!-- Logo nếu có -->
     <img src="img/logo_poseidon.png" alt="Logo" class="logo">
-
     <h3 class="login-title">ĐĂNG NHẬP</h3>
+
+    <?php if (!empty($error_message)): ?>
+      <div style="color: red; margin: 10px 0;"><?= htmlspecialchars($error_message) ?></div>
+    <?php endif; ?>
 
     <form action="login.php" method="POST">
       <div class="mb-3">
-        <label for="user_name" class="form-label">Tên đăng nhập</label>
+        <label for="username" class="form-label">Tên đăng nhập</label>
         <input type="text" class="form-control" id="username" name="user_name" placeholder="Nhập tên đăng nhập">
       </div>
       <div class="mb-3">
-        <label for="user_password" class="form-label">Mật khẩu</label>
-        <input type="password" class="form-control" id="password" name="user_password"e placeholder="Nhập mật khẩu">
+        <label for="password" class="form-label">Mật khẩu</label>
+        <input type="password" class="form-control" id="password" name="user_password" placeholder="Nhập mật khẩu">
       </div>
-
-    <?php 
-session_start();
-require_once ("include/config.php");
-
-if (isset($_POST["submit"])) { 
-    // Lọc và làm sạch dữ liệu đầu vào
-    $username = trim($_POST['user_name']);
-    $password = trim($_POST['user_password']);
-    $error_message = "";
-
-    // Validate dữ liệu đầu vào
-    if (empty($username)) {
-        $error_message = "Tên đăng nhập không được để trống!";
-    } elseif (empty($password)) {
-        $error_message = "Mật khẩu không được để trống!";
-    }
-
-    // Hiển thị lỗi nếu có
-    if (!empty($error_message)) {
-        echo "<div style='color: red; margin: 10px 0;'>$error_message</div>";
-    } else {
-        // Truy vấn dữ liệu từ database
-        try {
-            $sql = "SELECT * FROM users WHERE user_name = :username LIMIT 1";
-            $stmt = $conn->prepare($sql);
-            $stmt->execute([':username' => $username]);
-
-            if ($stmt->rowCount() > 0) {
-                $user = $stmt->fetch(PDO::FETCH_ASSOC);
-
-                // Kiểm tra trạng thái khóa (mặc định nếu null là vẫn hoạt động)
-                if (isset($user['status']) && $user['status'] == 0) {
-                    echo "<div style='color: red;'>Tài khoản này đã bị khóa. Vui lòng liên hệ quản lý!</div>";
-                } else {
-                    // Kiểm tra mật khẩu
-                    if ($password === $user['user_password']) {
-                            // Lưu thông tin vào session và chuyển hướng
-                            $_SESSION['user_id'] = $user['user_id'];
-                            $_SESSION['user_name'] = $user['user_name'];
-                            $_SESSION['user_profile'] = $user['user_profile'];
-                            $_SESSION['user_role'] = $user['user_role'];
-                            header("Location: index.php");
-                            exit();
-                    } else {
-                        echo "<div style='color: red;'>Mật khẩu không đúng!</div>";
-                    }
-                }
-            } else {
-                echo "<div style='color: red;'>Tên đăng nhập không tồn tại!</div>";
-            }
-        } catch (PDOException $e) {
-            echo "<div style='color: red;'>Lỗi hệ thống: " . $e->getMessage() . "</div>";
-        }
-    }
-}
-?>
-      <input type="submit" name ="submit" class="btn btn-login mt-2" value="Đăng nhập">
+      <input type="submit" name="submit" class="btn btn-login mt-2" value="Đăng nhập">
     </form>
 
     <div class="text-small">
